@@ -1,9 +1,12 @@
 name: flat
-description: Take a nested Map and flatten it with delimited keys.
+description: >-
+  A simple, no dependency 🚀 way to take a nested Map and flatten it into a single depth Map.
+  Based on Node.js `flat` package.
+
 homepage: https://github.com/danilofuchs/flat
 repository: https://github.com/danilofuchs/flat
 
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: ">=2.0.0 <3.0.0"

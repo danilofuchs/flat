@@ -1,3 +1,7 @@
+/// Flatten a nested Map into a single level map
+///
+/// If no [delimiter] is specified, will separate depth levels by `.`
+/// If you don't want to flatten arrays (with 0, 1,... indexes), use [safe] mode
 Map<String, dynamic> flatten(
   Map<String, dynamic> obj, {
   String delimiter = ".",
@@ -21,10 +25,9 @@ Map<String, dynamic> flatten(
     }
     if (value is List) {
       if (safe) {
-        print(value);
         result[key] = value;
       } else {
-        result.addAll(scopedFlatten(listToMap(value)).map(
+        result.addAll(scopedFlatten(_listToMap(value)).map(
             (deepKey, deepValue) =>
                 MapEntry("$key$delimiter$deepKey", deepValue)));
       }
@@ -35,7 +38,7 @@ Map<String, dynamic> flatten(
   return result;
 }
 
-Map<String, dynamic> listToMap(List<dynamic> list) =>
+Map<String, dynamic> _listToMap(List<dynamic> list) =>
     list.asMap().map((key, value) => MapEntry(key.toString(), value));
 
 main() {

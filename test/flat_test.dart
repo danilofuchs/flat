@@ -1,5 +1,6 @@
-import 'package:flat/flat.dart';
 import 'package:test/test.dart';
+
+import 'package:flat/flat.dart';
 
 void main() {
   test('Flattens nested Map', () {
