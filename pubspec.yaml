@@ -6,7 +6,7 @@ description: >-
 homepage: https://github.com/danilofuchs/flat
 repository: https://github.com/danilofuchs/flat
 
-version: 0.1.1
+version: 0.2.0
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
