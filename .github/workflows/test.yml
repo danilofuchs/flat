@@ -25,3 +25,6 @@ jobs:
 
       - name: Run tests
         run: pub run test
+
+      - name: Lint
+        run: dartanalyzer --fatal-warnings lib test example
