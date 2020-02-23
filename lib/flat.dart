@@ -1,7 +1,8 @@
 /// Flatten a nested Map into a single level map
 ///
-/// If no [delimiter] is specified, will separate depth levels by `.`
-/// If you don't want to flatten arrays (with 0, 1,... indexes), use [safe] mode
+/// If no [delimiter] is specified, will separate depth levels by `.`.
+///
+/// If you don't want to flatten arrays (with 0, 1,... indexes), use [safe] mode.
 Map<String, dynamic> flatten(
   Map<String, dynamic> target, {
   String delimiter = ".",
@@ -11,15 +12,12 @@ Map<String, dynamic> flatten(
 
   void step(Map<String, dynamic> obj, [String previousKey]) {
     obj.forEach((key, value) {
-      final isMap = value is Map;
-      final isList = value is List;
-
       final newKey = previousKey != null ? "$previousKey$delimiter$key" : key;
 
-      if (isMap) {
+      if (value is Map<String, dynamic>) {
         return step(value, newKey);
       }
-      if (isList && !safe) {
+      if (value is List && !safe) {
         return step(_listToMap(value), newKey);
       }
       result[newKey] = value;

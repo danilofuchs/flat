@@ -16,6 +16,16 @@ void main() {
     expect(result, expected);
   });
 
+  test('Preserves empty Map', () {
+    const obj = {"a": {}};
+
+    const expected = {"a": {}};
+
+    final result = flatten(obj);
+
+    expect(result, expected);
+  });
+
   test('Flattens List', () {
     const obj = {
       "a": "item",
