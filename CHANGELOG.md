@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] - 2020-02-22
 
+- **chore:** Enable effective_dart linting rules
 - **feat:** maxDepth parameter
 - **fix:** Preserve empty Maps
 - **refactor:** Simplify logic based on npm's flat

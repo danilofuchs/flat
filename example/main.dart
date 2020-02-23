@@ -1,6 +1,6 @@
 import 'package:flat/flat.dart';
 
-main() {
+void main() {
   final flat = flatten({
     "a": 1,
     "b": {"c": 2}

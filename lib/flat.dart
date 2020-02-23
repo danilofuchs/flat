@@ -2,20 +2,21 @@
 ///
 /// If no [delimiter] is specified, will separate depth levels by `.`.
 ///
-/// If you don't want to flatten arrays (with 0, 1,... indexes), use [safe] mode.
+/// If you don't want to flatten arrays (with 0, 1,... indexes),
+/// use [safe] mode.
 ///
-/// To avoid circular reference issues or huge calculations, you can specify the [maxDepth]
-/// the function will traverse.
-Map<String, dynamic> flatten(
-  Map<String, dynamic> target, {
+/// To avoid circular reference issues or huge calculations,
+/// you can specify the [maxDepth] the function will traverse.
+Map<String, Object> flatten(
+  Map<String, Object> target, {
   String delimiter = ".",
   bool safe = false,
   int maxDepth,
 }) {
-  Map<String, Object> result = {};
+  var result = <String, Object>{};
 
   void step(
-    Map<String, dynamic> obj, [
+    Map<String, Object> obj, [
     String previousKey,
     int currentDepth = 1,
   ]) {
@@ -26,7 +27,7 @@ Map<String, dynamic> flatten(
         result[newKey] = value;
         return;
       }
-      if (value is Map<String, dynamic>) {
+      if (value is Map<String, Object>) {
         return step(value, newKey, currentDepth + 1);
       }
       if (value is List && !safe) {
@@ -41,5 +42,5 @@ Map<String, dynamic> flatten(
   return result;
 }
 
-Map<String, dynamic> _listToMap(List<dynamic> list) =>
+Map<String, T> _listToMap<T>(List<T> list) =>
     list.asMap().map((key, value) => MapEntry(key.toString(), value));
