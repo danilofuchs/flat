@@ -16,6 +16,16 @@ void main() {
     expect(result, expected);
   });
 
+  test('Preserves empty Map', () {
+    const obj = {"a": {}};
+
+    const expected = {"a": {}};
+
+    final result = flatten(obj);
+
+    expect(result, expected);
+  });
+
   test('Flattens List', () {
     const obj = {
       "a": "item",
@@ -85,27 +95,27 @@ void main() {
     expect(result, expected);
   });
 
-  // test('Should limit depth by maxDepth', () {
-  //   const obj = {
-  //     "a": {
-  //       "b": {
-  //         "c": {
-  //           "d": {"e": 1}
-  //         }
-  //       }
-  //     }
-  //   };
+  test('Should limit depth by maxDepth', () {
+    const obj = {
+      "a": {
+        "b": {
+          "c": {
+            "d": {"e": 1}
+          }
+        }
+      }
+    };
 
-  //   const maxDepth = 3;
+    const maxDepth = 3;
 
-  //   const expected = {
-  //     "a": {
-  //       "b": {"c.d.e": 1}
-  //     }
-  //   };
+    const expected = {
+      "a.b.c": {
+        "d": {"e": 1}
+      }
+    };
 
-  //   final result = flatten(obj, maxDepth: maxDepth);
+    final result = flatten(obj, maxDepth: maxDepth);
 
-  //   expect(result, expected);
-  // });
+    expect(result, expected);
+  });
 }
