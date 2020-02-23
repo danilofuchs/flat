@@ -59,3 +59,29 @@ flatten({
 //   ]
 // };
 ```
+
+### maxDepth
+
+Maximum number of nested objects to flatten.
+
+```dart
+import 'package:flat/flat.dart';
+
+flatten({
+  'key1': {'keyA': 'valueI'},
+  'key2': {'keyB': 'valueII'},
+  'key3': {
+    'a': {
+      'b': {'c': 2}
+    }
+  }
+}, maxDepth: 2);
+
+// {
+//   'key1.keyA': 'valueI',
+//   'key2.keyB': 'valueII',
+//   'key3.a': {
+//     'b': {'c': 2}
+//   }
+// };
+```

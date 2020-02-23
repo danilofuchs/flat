@@ -95,27 +95,27 @@ void main() {
     expect(result, expected);
   });
 
-  // test('Should limit depth by maxDepth', () {
-  //   const obj = {
-  //     "a": {
-  //       "b": {
-  //         "c": {
-  //           "d": {"e": 1}
-  //         }
-  //       }
-  //     }
-  //   };
+  test('Should limit depth by maxDepth', () {
+    const obj = {
+      "a": {
+        "b": {
+          "c": {
+            "d": {"e": 1}
+          }
+        }
+      }
+    };
 
-  //   const maxDepth = 3;
+    const maxDepth = 3;
 
-  //   const expected = {
-  //     "a": {
-  //       "b": {"c.d.e": 1}
-  //     }
-  //   };
+    const expected = {
+      "a.b.c": {
+        "d": {"e": 1}
+      }
+    };
 
-  //   final result = flatten(obj, maxDepth: maxDepth);
+    final result = flatten(obj, maxDepth: maxDepth);
 
-  //   expect(result, expected);
-  // });
+    expect(result, expected);
+  });
 }
