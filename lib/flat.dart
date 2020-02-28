@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /// Flatten a nested Map into a single level map
 ///
 /// If no [delimiter] is specified, will separate depth levels by `.`.
@@ -7,8 +9,11 @@
 ///
 /// To avoid circular reference issues or huge calculations,
 /// you can specify the [maxDepth] the function will traverse.
-Map<String, Object> flatten(
-  Map<String, Object> target, {
+/// [target]
+
+Map<String, Object> flatten({
+  Map<String, Object> target, 
+  String data,
   String delimiter = ".",
   bool safe = false,
   int maxDepth,
@@ -36,8 +41,9 @@ Map<String, Object> flatten(
       result[newKey] = value;
     });
   }
-
-  step(target);
+  
+  step(target == null ? jsonDecode(data) : target) ;
+  
 
   return result;
 }

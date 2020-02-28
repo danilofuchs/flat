@@ -11,7 +11,7 @@ Take a nested Map and flatten it with delimited keys. Entirely based on node.js 
 ```dart
 import 'package:flat/flat.dart';
 
-flatten({
+flatten(target:{
   'key1': {'keyA': 'valueI'},
   'key2': {'keyB': 'valueII'},
   'key3': {
@@ -41,7 +41,7 @@ When enabled, flat will preserve arrays and their contents. This is disabled by 
 ```dart
 import 'package:flat/flat.dart';
 
-flatten({
+flatten(target:{
   'this': [
     {'contains': 'arrays'},
     {
@@ -67,7 +67,7 @@ Maximum number of nested objects to flatten.
 ```dart
 import 'package:flat/flat.dart';
 
-flatten({
+flatten(target:{
   'key1': {'keyA': 'valueI'},
   'key2': {'keyB': 'valueII'},
   'key3': {
