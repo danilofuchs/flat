@@ -11,13 +11,13 @@ Map<String, Object> flatten(
   Map<String, Object> target, {
   String delimiter = ".",
   bool safe = false,
-  int maxDepth,
+  int? maxDepth,
 }) {
-  var result = <String, Object>{};
+  final result = <String, Object>{};
 
   void step(
     Map<String, Object> obj, [
-    String previousKey,
+    String? previousKey,
     int currentDepth = 1,
   ]) {
     obj.forEach((key, value) {
@@ -31,7 +31,11 @@ Map<String, Object> flatten(
         return step(value, newKey, currentDepth + 1);
       }
       if (value is List && !safe) {
-        return step(_listToMap(value), newKey, currentDepth + 1);
+        return step(
+          _listToMap(value as List<Object>),
+          newKey,
+          currentDepth + 1,
+        );
       }
       result[newKey] = value;
     });
