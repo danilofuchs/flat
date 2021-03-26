@@ -26,6 +26,28 @@ void main() {
     expect(result, expected);
   });
 
+  test('Preserves null', () {
+    const obj = {"a": null};
+
+    const expected = {"a": null};
+
+    final result = flatten(obj);
+
+    expect(result, expected);
+  });
+
+  test('Preserves deep null', () {
+    const obj = {
+      "a": {"b": null}
+    };
+
+    const expected = {"a.b": null};
+
+    final result = flatten(obj);
+
+    expect(result, expected);
+  });
+
   test('Flattens List', () {
     const obj = {
       "a": "item",

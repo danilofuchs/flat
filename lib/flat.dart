@@ -7,16 +7,16 @@
 ///
 /// To avoid circular reference issues or huge calculations,
 /// you can specify the [maxDepth] the function will traverse.
-Map<String, Object> flatten(
-  Map<String, Object> target, {
+Map<String, dynamic> flatten(
+  Map<String, dynamic> target, {
   String delimiter = ".",
   bool safe = false,
   int? maxDepth,
 }) {
-  final result = <String, Object>{};
+  final result = <String, dynamic>{};
 
   void step(
-    Map<String, Object> obj, [
+    Map<String, dynamic> obj, [
     String? previousKey,
     int currentDepth = 1,
   ]) {
@@ -27,7 +27,7 @@ Map<String, Object> flatten(
         result[newKey] = value;
         return;
       }
-      if (value is Map<String, Object>) {
+      if (value is Map<String, dynamic>) {
         return step(value, newKey, currentDepth + 1);
       }
       if (value is List && !safe) {
