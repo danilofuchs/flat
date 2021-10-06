@@ -32,7 +32,7 @@ Map<String, dynamic> flatten(
       }
       if (value is List && !safe) {
         return step(
-          _listToMap(value as List<Object>),
+          _listToMap(value as List<dynamic>),
           newKey,
           currentDepth + 1,
         );
