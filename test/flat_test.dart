@@ -1,6 +1,7 @@
-import 'package:test/test.dart';
+import 'dart:convert';
 
 import 'package:flat/flat.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Flattens nested Map', () {
@@ -139,5 +140,23 @@ void main() {
     final result = flatten(obj, maxDepth: maxDepth);
 
     expect(result, expected);
+  });
+
+  test('flattens decoded json with lists', () {
+    // https://github.com/danilofuchs/flat/pull/6
+    const obj = {
+      "mediaData": {
+        "resources": [
+          {"uri": "spotify://", "mimeType": "audio/unknown"}
+        ]
+      }
+    };
+
+    final result = flatten(jsonDecode(jsonEncode(obj)) as Map<String, dynamic>);
+
+    expect(result, {
+      "mediaData.resources.0.uri": "spotify://",
+      "mediaData.resources.0.mimeType": "audio/unknown"
+    });
   });
 }
