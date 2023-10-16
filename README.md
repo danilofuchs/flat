@@ -2,7 +2,7 @@
 
 Take a nested Map and flatten it with delimited keys. Entirely based on node.js [flat](https://www.npmjs.com/package/flat).
 
-> It does not achieve feature parity yet, as some options are missing from `flatten` (maxDepth, transformKey) and `unflatten` is not yet implemented.
+> It does not achieve feature parity yet, as some options are missing from `flatten` (maxDepth, transformKey).
 
 > Currently, it bails out of a tree if it finds something different than a `Map` or `List`.
 
@@ -11,21 +11,54 @@ Take a nested Map and flatten it with delimited keys. Entirely based on node.js 
 ```dart
 import 'package:flat/flat.dart';
 
-flatten({
-  'key1': {'keyA': 'valueI'},
-  'key2': {'keyB': 'valueII'},
-  'key3': {
-    'a': {
-      'b': {'c': 2}
-    }
-  }
+flatten(
+    {
+      "a": 1,
+      "list1": ["item1", "item2"],
+      "f": {
+        "list2": ["item3", "item4", "item5"],
+        "g": 2,
+        "h": true,
+        "j": "text",
+      },
+    },
+  );
+  
+// {
+//   "a": 1,
+//   "list1.0": "item1",
+//   "list1.1": "item2",
+//   "f.list2.0": "item3",
+//   "f.list2.1": "item4",
+//   "f.list2.2": "item5",
+//   "f.g": 2,
+//   "f.h": true,
+//   "f.j": "text"
+// }
+
+unflatten({
+  "a": 1,
+  "list1.0": "item1",
+  "list1.1": "item2",
+  "f.list2.0": "item3",
+  "f.list2.1": "item4",
+  "f.list2.2": "item5",
+  "f.g": 2,
+  "f.h": true,
+  "f.j": "text"
 });
 
 // {
-//   'key1.keyA': 'valueI',
-//   'key2.keyB': 'valueII',
-//   'key3.a.b.c': 2
-// };
+//   "a": 1,
+//   "list1": ["item1", "item2"],
+//   "f": {
+//     "list2": ["item3", "item4", "item5"],
+//     "g": 2,
+//     "h": true,
+//     "j": "text",
+//   },
+// }
+
 ```
 
 ## Options
