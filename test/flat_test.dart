@@ -28,7 +28,8 @@ void main() {
       expect(
         // ignore: avoid_dynamic_calls
         (obj['abc']! as Map)['c'][0].keys,
-        (result['abc']! as Map).keys,
+        // ignore: avoid_dynamic_calls
+        (result['abc']! as Map)['c'][0].keys,
       );
     });
   });

@@ -39,7 +39,7 @@ void main() {
 
     test('Object inside array', () {
       const obj = {
-        'hello.0.again': 'good morning',
+        'hello.0.world.again': 'good morning',
       };
 
       const expected = {

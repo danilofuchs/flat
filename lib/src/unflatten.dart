@@ -10,38 +10,45 @@ Map<String, dynamic> unflatten(
   final Map<String, dynamic> result = {};
 
   flatMap.forEach((key, value) {
-    // Split the flattened key by the specified delimiter.
-    final keys = key.split(
-      delimiter,
-    );
-
+    final keys = key.split(delimiter);
     dynamic current = result;
 
     for (int i = 0; i < keys.length; i++) {
       final k = keys[i];
-      if (value is Map || value is List) {
-        throw ArgumentError(
-          'The value of the key $key is a ${value.runtimeType} which is not supported',
-        );
-      } else if (i == keys.length - 1) {
+      if (i == keys.length - 1) {
+        // Last key, assign the value
         if (_isInteger(k)) {
-          // This means that we have to do with a list instead
-          (current as List).add(value);
+          final int index = int.parse(k);
+          while ((current as List).length <= index) {
+            current.add(null); // Padding the array
+          }
+          current[index] = value;
         } else {
-          // If we're at the last key in the hierarchy, assign the value.
-          (current as Map)[k] = value;
+          if ((current as Map).containsKey(k)) {
+            throw ArgumentError('Cannot unflatten, key "$k" already exists');
+          }
+          current[k] = value;
         }
       } else {
-        // If the key doesn't exist, create a new map or list for it.
-        final nextKey = keys[i + 1];
-        if (_isInteger(nextKey)) {
-          // This means that we have to do with a list so we create a list instead of a Map
-          (current as Map)[k] ??= [];
+        // Not the last key, we might need to create a map or array
+        if (_isInteger(k)) {
+          final int index = int.parse(k);
+          while ((current as List).length <= index) {
+            current.add(null); // Padding the array
+          }
+          // Ensure that we have a Map at the index if the next key is not an integer
+          if (!_isInteger(keys[i + 1]) &&
+              (current[index] == null || current[index] is! Map)) {
+            current[index] = {};
+          }
+          current = current[index];
         } else {
-          (current as Map)[k] ??= <String, dynamic>{};
+          if ((current as Map)[k] == null) {
+            // Next key will tell us whether to create a list or a map
+            current[k] = _isInteger(keys[i + 1]) ? [] : <String, dynamic>{};
+          }
+          current = current[k];
         }
-        // Move one level deeper into the map.
-        current = current[k];
       }
     }
   });
