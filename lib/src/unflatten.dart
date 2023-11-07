@@ -19,11 +19,10 @@ Map<String, dynamic> unflatten(
 
     for (int i = 0; i < keys.length; i++) {
       final k = keys[i];
-      if (value is Map) {
-        for (final entry in value.entries) {
-          current[k] ??= <String, dynamic>{};
-          current[k][entry.key] = entry.value;
-        }
+      if (value is Map || value is List) {
+        throw ArgumentError(
+          'The value of the key $key is a ${value.runtimeType} which is not supported',
+        );
       } else if (i == keys.length - 1) {
         if (_isInteger(k)) {
           // This means that we have to do with a list instead

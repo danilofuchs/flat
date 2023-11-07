@@ -57,7 +57,7 @@ void main() {
       expect(result, expected);
     });
 
-    test('Multiple Keys', () {
+    test('Fails on multiple Keys', () {
       const obj = {
         'hello.lorem.ipsum': 'again',
         'hello.lorem.dolor': 'sit',
@@ -66,45 +66,7 @@ void main() {
         'world': {'greet': 'hello'},
       };
 
-      const expected = {
-        "hello": {
-          "lorem": {
-            'ipsum': 'again',
-            'dolor': 'sit',
-          },
-        },
-        'world': {
-          'greet': 'hello',
-          'lorem': {
-            'ipsum': 'again',
-            'dolor': 'sit',
-          },
-        },
-      };
-
-      final result = unflatten(obj);
-
-      expect(result, expected);
-    });
-
-    test('nested objects do not clobber each other when a.b inserted before a',
-        () {
-      final obj = <String, dynamic>{};
-      obj['foo.bar'] = {'t': 123};
-      obj['foo'] = {'p': 333};
-
-      const expected = {
-        "foo": {
-          "bar": {
-            't': 123,
-          },
-          'p': 333,
-        },
-      };
-
-      final result = unflatten(obj);
-
-      expect(result, expected);
+      expect(() => unflatten(obj), throwsArgumentError);
     });
 
     test('Custom Delimiter', () {
@@ -125,51 +87,7 @@ void main() {
       expect(result, expected);
     });
 
-    test('Messy', () {
-      const obj = {
-        'hello.world': 'again',
-        'lorem.ipsum': 'another',
-        'good.morning': {
-          'hash.key': {
-            'nested.deep': {
-              'and.even.deeper.still': 'hello',
-            },
-          },
-        },
-        'good.morning.again': {'testing.this': 'out'},
-      };
-
-      const expected = {
-        'hello': {'world': 'again'},
-        'lorem': {'ipsum': 'another'},
-        'good': {
-          'morning': {
-            'hash': {
-              'key': {
-                'nested': {
-                  'deep': {
-                    'and': {
-                      'even': {
-                        'deeper': {'still': 'hello'},
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            'again': {
-              'testing': {'this': 'out'},
-            },
-          },
-        },
-      };
-
-      final result = unflatten(obj);
-
-      expect(result, expected);
-    });
-
-    test('Should be unflatten array', () {
+    test('Should unflatten array', () {
       const obj = {
         'a.0': 'foo',
         'a.1': 'bar',
@@ -189,19 +107,6 @@ void main() {
 
       const expected = {
         '1key': {'2_key': 'ok'},
-      };
-
-      final result = unflatten(obj);
-
-      expect(result, expected);
-    });
-
-    test('Empty objects should not be removed', () {
-      const obj = {'foo': [], 'bar': {}};
-
-      const expected = {
-        'foo': [],
-        'bar': {},
       };
 
       final result = unflatten(obj);
