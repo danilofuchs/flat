@@ -14,7 +14,12 @@ Map<String, dynamic> unflatten(
 
     for (int i = 0; i < keys.length; i++) {
       final k = keys[i];
-      if (i == keys.length - 1) {
+      if (value is Map) {
+        for (final entry in value.entries) {
+          current[k] ??= <String, dynamic>{};
+          current[k][entry.key] = entry.value;
+        }
+      } else if (i == keys.length - 1) {
         if (_isInteger(k)) {
           // This means that we have to do with a list instead
           (current as List).add(value);
