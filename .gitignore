@@ -19,3 +19,8 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+
+# FVM config
+.fvm/flutter_sdk
+.vscode/settings.json
+
