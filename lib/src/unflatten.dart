@@ -1,3 +1,8 @@
+/// Unflatten a map with keys such as `a.b.c: value` to a nested Map structure `{a: {b: {c: value}}}`.
+///
+/// If no [delimiter] is specified, will separate depth levels by `.`.
+///
+/// Unflattens arrays given that the keys are integers.
 Map<String, dynamic> unflatten(
   Map<String, dynamic> flatMap, {
   String delimiter = ".",

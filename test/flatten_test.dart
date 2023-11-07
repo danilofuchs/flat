@@ -8,7 +8,7 @@ void main() {
     test('Flattens nested Map', () {
       const obj = {
         "a": 1,
-        "b": {"c": 2}
+        "b": {"c": 2},
       };
 
       const expected = {"a": 1, "b.c": 2};
@@ -40,7 +40,7 @@ void main() {
 
     test('Preserves deep null', () {
       const obj = {
-        "a": {"b": null}
+        "a": {"b": null},
       };
 
       const expected = {"a.b": null};
@@ -53,7 +53,7 @@ void main() {
     test('Flattens List', () {
       const obj = {
         "a": "item",
-        "b": [0, 1]
+        "b": [0, 1],
       };
 
       const expected = {"a": "item", "b.0": 0, "b.1": 1};
@@ -71,10 +71,10 @@ void main() {
           "d": "asd",
           "a": {
             "a": [
-              {"where": "a"}
-            ]
-          }
-        }
+              {"where": "a"},
+            ],
+          },
+        },
       };
 
       const expected = {"a": 1, "b.c": 2, "b.d": "asd", "b.a.a.0.where": "a"};
@@ -87,7 +87,7 @@ void main() {
     test('Should delimit with optional delimiter parameter', () {
       const obj = {
         "a": 1,
-        "b": {"c": 2}
+        "b": {"c": 2},
       };
 
       const expected = {"a": 1, "b_c": 2};
@@ -102,16 +102,16 @@ void main() {
         "a": 1,
         "b": {
           "c": [
-            {"d": 2}
-          ]
-        }
+            {"d": 2},
+          ],
+        },
       };
 
       const expected = {
         "a": 1,
         "b.c": [
-          {"d": 2}
-        ]
+          {"d": 2},
+        ],
       };
 
       final result = flatten(obj, safe: true);
@@ -124,18 +124,18 @@ void main() {
         "a": {
           "b": {
             "c": {
-              "d": {"e": 1}
-            }
-          }
-        }
+              "d": {"e": 1},
+            },
+          },
+        },
       };
 
       const maxDepth = 3;
 
       const expected = {
         "a.b.c": {
-          "d": {"e": 1}
-        }
+          "d": {"e": 1},
+        },
       };
 
       final result = flatten(obj, maxDepth: maxDepth);
@@ -148,9 +148,9 @@ void main() {
       const obj = {
         "mediaData": {
           "resources": [
-            {"uri": "spotify://", "mimeType": "audio/unknown"}
-          ]
-        }
+            {"uri": "spotify://", "mimeType": "audio/unknown"},
+          ],
+        },
       };
 
       final result =
@@ -158,7 +158,7 @@ void main() {
 
       expect(result, {
         "mediaData.resources.0.uri": "spotify://",
-        "mediaData.resources.0.mimeType": "audio/unknown"
+        "mediaData.resources.0.mimeType": "audio/unknown",
       });
     });
   });
