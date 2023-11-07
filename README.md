@@ -2,11 +2,13 @@
 
 Take a nested Map and flatten it with delimited keys. Entirely based on node.js [flat](https://www.npmjs.com/package/flat).
 
-> It does not achieve feature parity yet, as some options are missing from `flatten` (maxDepth, transformKey).
+> It does not achieve feature parity yet, as some options are missing from `flatten` (transformKey) and `unflatten` (`object`, `overwrite`, `transformKey`).
 
-> Currently, it bails out of a tree if it finds something different than a `Map` or `List`.
+> Currently, it bails out of a tree if it finds something different than a `Map` or `List` when flatening, or a nested `Map` or `List` when unflattening.
 
-## Usage
+## Methods
+
+### `flatten`
 
 ```dart
 import 'package:flat/flat.dart';
@@ -23,7 +25,7 @@ flatten(
       },
     },
   );
-  
+
 // {
 //   "a": 1,
 //   "list1.0": "item1",
@@ -35,39 +37,13 @@ flatten(
 //   "f.h": true,
 //   "f.j": "text"
 // }
-
-unflatten({
-  "a": 1,
-  "list1.0": "item1",
-  "list1.1": "item2",
-  "f.list2.0": "item3",
-  "f.list2.1": "item4",
-  "f.list2.2": "item5",
-  "f.g": 2,
-  "f.h": true,
-  "f.j": "text"
-});
-
-// {
-//   "a": 1,
-//   "list1": ["item1", "item2"],
-//   "f": {
-//     "list2": ["item3", "item4", "item5"],
-//     "g": 2,
-//     "h": true,
-//     "j": "text",
-//   },
-// }
-
 ```
 
-## Options
-
-### delimiter
+#### `delimiter`
 
 Use a custom delimiter for flattening your objects, instead of `.`
 
-### safe
+#### `safe`
 
 When enabled, flat will preserve arrays and their contents. This is disabled by default.
 
@@ -93,7 +69,7 @@ flatten({
 // };
 ```
 
-### maxDepth
+#### `maxDepth`
 
 Maximum number of nested objects to flatten.
 
@@ -118,3 +94,38 @@ flatten({
 //   }
 // };
 ```
+
+### `unflatten`
+
+Reverse process from `flatten`.
+
+> Only supports completely flat maps as input.
+
+```dart
+unflatten({
+  "a": 1,
+  "list1.0": "item1",
+  "list1.1": "item2",
+  "f.list2.0": "item3",
+  "f.list2.1": "item4",
+  "f.list2.2": "item5",
+  "f.g": 2,
+  "f.h": true,
+  "f.j": "text"
+});
+
+// {
+//   "a": 1,
+//   "list1": ["item1", "item2"],
+//   "f": {
+//     "list2": ["item3", "item4", "item5"],
+//     "g": 2,
+//     "h": true,
+//     "j": "text",
+//   },
+// }
+```
+
+#### `delimiter`
+
+Use a custom delimiter for unflattening your objects, instead of `.`
