@@ -3,11 +3,24 @@
 /// If no [delimiter] is specified, will separate depth levels by `.`.
 ///
 /// Unflattens arrays given that the keys are integers.
+///
+/// Throws [ArgumentError] if any key is already a Map or List.
+///
+/// Throws [ArgumentError] if there are conflicting keys.
 Map<String, dynamic> unflatten(
   Map<String, dynamic> flatMap, {
   String delimiter = ".",
 }) {
   final Map<String, dynamic> result = {};
+
+  flatMap.forEach((key, value) {
+    if (value is Map) {
+      throw ArgumentError('Expected flat map, but key "$key" is a Map');
+    }
+    if (value is List) {
+      throw ArgumentError('Expected flat map, but key "$key" is a List');
+    }
+  });
 
   flatMap.forEach((key, value) {
     final keys = key.split(delimiter);

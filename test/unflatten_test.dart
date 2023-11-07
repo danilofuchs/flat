@@ -57,13 +57,31 @@ void main() {
       expect(result, expected);
     });
 
-    test('Fails on multiple Keys', () {
+    test('Fails on repeated key', () {
       const obj = {
         'hello.lorem.ipsum': 'again',
         'hello.lorem.dolor': 'sit',
         'world.lorem.ipsum': 'again',
         'world.lorem.dolor': 'sit',
         'world': {'greet': 'hello'},
+      };
+
+      expect(() => unflatten(obj), throwsArgumentError);
+    });
+
+    test('Fails on nested Map', () {
+      const obj = {
+        'world': {'greet': 'hello'},
+      };
+
+      expect(() => unflatten(obj), throwsArgumentError);
+    });
+
+    test('Fails on nested nested Map', () {
+      const obj = {
+        'hello.lorem.ipsum': {
+          'world': {'greet': 'hello'},
+        },
       };
 
       expect(() => unflatten(obj), throwsArgumentError);
